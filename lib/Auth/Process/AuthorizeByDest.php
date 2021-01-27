@@ -72,7 +72,7 @@ class AuthorizeByDest extends Auth\ProcessingFilter
      *
      * @param array &$request  The current request
      */
-    public function process(array &$request): void
+    public function process(&$request)
     {
         Assert::keyExists($request, 'Attributes');
         Assert::keyExists($request, 'Destination');
@@ -102,7 +102,7 @@ class AuthorizeByDest extends Auth\ProcessingFilter
      *
      * @param array $request
      */
-    protected function unauthorized(array &$request): void
+    protected function unauthorized(&$request)
     {
         // Save state and redirect to 403 page
         $id = Auth\State::saveState($request, 'authorizebydest:AuthorizeByDest');

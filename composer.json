@@ -30,11 +30,11 @@
     "require": {
         "php": ">=7.4 || ^8.0",
         "simplesamlphp/assert": "~0.1.0",
-        "simplesamlphp/simplesamlphp": "^1.18",
+        "simplesamlphp/simplesamlphp": "~1.18",
         "simplesamlphp/composer-module-installer": "~1.1"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "^1.0.0"
+        "simplesamlphp/simplesamlphp-test-framework": "~0.2"
     },
     "support": {
         "issues": "https://github.com/szabogyula/simplesamlphp-module-authorizebydest/issues",

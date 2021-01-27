@@ -53,6 +53,7 @@ class AuthorizeByDest
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \SimpleSAML\XHTML\Template
+     * @throws Error\BadRequest
      */
     public function forbidden(Request $request): Template
     {
