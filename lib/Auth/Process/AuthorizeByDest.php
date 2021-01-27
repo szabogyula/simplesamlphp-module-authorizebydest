@@ -106,7 +106,7 @@ class AuthorizeByDest extends Auth\ProcessingFilter
     {
         // Save state and redirect to 403 page
         $id = Auth\State::saveState($request, 'authorizebydest:AuthorizeByDest');
-        $url = Module::getModuleURL('authorize/authorize_403.php');
+        $url = Module::getModuleURL('authorizebydest/authorize_403.php');
         Utils\HTTP::redirectTrustedURL($url, ['StateId' => $id]);
     }
 }
