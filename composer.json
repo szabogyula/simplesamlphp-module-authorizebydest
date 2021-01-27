@@ -1,5 +1,5 @@
 {
-    "name": "szabogyula/simplesamlphp-module-authorizeibydest",
+    "name": "szabogyula/simplesamlphp-module-authorizebydest",
     "description": "This module provides a user authorization filter based on destination whitelist and attribute value matching",
     "type": "simplesamlphp-module",
     "keywords": ["simplesamlphp", "authorizebydest"],
