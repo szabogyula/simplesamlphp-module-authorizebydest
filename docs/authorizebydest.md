@@ -1,5 +1,5 @@
-authorize Module
-================
+authorizebydest Module
+======================
 
 <!--
 	This file is written in Markdown syntax.
