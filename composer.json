@@ -1,0 +1,43 @@
+{
+    "name": "szabogyula/simplesamlphp-module-authorizeibydest",
+    "description": "This module provides a user authorization filter based on destination whitelist and attribute value matching",
+    "type": "simplesamlphp-module",
+    "keywords": ["simplesamlphp", "authorizebydest"],
+    "license": "LGPL-2.1-or-later",
+    "authors": [
+        {
+            "name": "Gyula Szabó",
+            "email": "gyufi@szabocsalad.com"
+        }
+    ],
+    "config": {
+        "preferred-install": {
+            "simplesamlphp/simplesamlphp": "source",
+            "*": "dist"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleSAML\\Module\\authorizebydest\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SimpleSAML\\Module\\AuthorizeByDest\\Tests\\Utils\\": "tests/Utils",
+            "SimpleSAML\\Test\\Utils\\": "vendor/simplesamlphp/simplesamlphp/tests/Utils"
+        }
+    },
+    "require": {
+        "php": ">=7.4 || ^8.0",
+        "simplesamlphp/assert": "~0.1.0",
+        "simplesamlphp/simplesamlphp": "dev-master",
+        "simplesamlphp/composer-module-installer": "~1.1"
+    },
+    "require-dev": {
+        "simplesamlphp/simplesamlphp-test-framework": "^1.0.0"
+    },
+    "support": {
+        "issues": "https://github.com/szabogyula/simplesamlphp-module-authorizebydest/issues",
+        "source": "https://github.com/szabogyula/simplesamlphp-module-authorizebydest"
+    }
+}
