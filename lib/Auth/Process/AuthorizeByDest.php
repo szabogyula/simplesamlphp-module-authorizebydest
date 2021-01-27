@@ -2,7 +2,7 @@
 
 namespace SimpleSAML\Module\authorizebydest\Auth\Process;
 
-use SimpleSAML\Assert\Assert;
+use Webmozart\Assert\Assert;
 use SimpleSAML\Auth;
 use SimpleSAML\Error\CriticalConfigurationError;
 use SimpleSAML\Module;
