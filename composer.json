@@ -30,7 +30,7 @@
     "require": {
         "php": ">=7.4 || ^8.0",
         "simplesamlphp/assert": "~0.1.0",
-        "simplesamlphp/simplesamlphp": "dev-master",
+        "simplesamlphp/simplesamlphp": "^1.18",
         "simplesamlphp/composer-module-installer": "~1.1"
     },
     "require-dev": {
