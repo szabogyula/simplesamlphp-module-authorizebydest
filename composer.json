@@ -33,7 +33,8 @@
         "simplesamlphp/composer-module-installer": "~1.1"
     },
     "require-dev": {
-        "simplesamlphp/simplesamlphp-test-framework": "~0.2"
+        "simplesamlphp/simplesamlphp-test-framework": "~0.2",
+        "phpunit/phpunit": "^9.5"
     },
     "support": {
         "issues": "https://github.com/szabogyula/simplesamlphp-module-authorizebydest/issues",
