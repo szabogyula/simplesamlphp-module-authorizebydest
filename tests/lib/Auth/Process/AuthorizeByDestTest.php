@@ -31,8 +31,8 @@ class AuthorizeByDestTest extends TestCase
 
         $request = [
             'Attributes'  => $userAttributes,
-            'Destination' => [
-                'entityid' => $entityid,
+            'saml:RequesterID' => [
+                $entityid
             ],
         ];
 
