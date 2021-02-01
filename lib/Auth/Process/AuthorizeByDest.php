@@ -75,10 +75,11 @@ class AuthorizeByDest extends Auth\ProcessingFilter
     public function process(&$request)
     {
         Assert::keyExists($request, 'Attributes');
-        Assert::keyExists($request, 'saml:RequesterID');
+        Assert::keyExists($request, 'SPMetadata');
+        Assert::keyExists($request['SPMetadata'],'entityid');
 
         $attributes = $request['Attributes'];
-        $destination = $request['saml:RequesterID'][0];
+        $destination = $request['SPMetadata']['entityid'];
 
         if (!empty($attributes[$this->attribute]) && in_array($this->attribute_value, $attributes[$this->attribute])) {
             if (!in_array($destination, $this->destination_whitelist)) {

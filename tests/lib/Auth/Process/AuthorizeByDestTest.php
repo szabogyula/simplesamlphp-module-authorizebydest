@@ -31,9 +31,7 @@ class AuthorizeByDestTest extends TestCase
 
         $request = [
             'Attributes'  => $userAttributes,
-            'saml:RequesterID' => [
-                $entityid
-            ],
+            'SPMetadata' => ['entityid' => $entityid],
         ];
 
         $resultState = $this->processFilter($config, $request);
