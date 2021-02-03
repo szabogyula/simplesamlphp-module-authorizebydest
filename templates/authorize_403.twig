@@ -1,15 +1,32 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  <h1>{% trans %}Access forbidden{% endtrans %}</h1>
-{% if reject_msg %}
-  <p>{{ reject_msg|translateFromArray }}</p>
-{% else %}
-  <p>{% trans %}You don't have the needed privileges to access the application. Please contact the administrator if you find this to be incorrect.{% endtrans %}</p>
-{% endif %}
-  {% if logoutURL %}
-  <p>
-      <a href="{{ logoutURL }}">{% trans %}Logout{% endtrans %}</a>
-  </p>
-  {% endif %}
-{% endblock%}
+    <h1>{% trans %}Hozzáférés megtagadva{% endtrans %}</h1>
+    {% if reject_msg %}
+        <p>{{ reject_msg|translateFromArray }}</p>
+    {% else %}
+        <p>A felkeresett szolgáltatást ezzel az azonosítóval nem lehet igénybe venni.</p>
+    {% endif %}
+
+    {% if state.SPMetadata and state.SPMetadata.UIInfo and state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.DisplayName.en %}
+        {% if state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.DisplayName.en %}
+            <p>
+                <strong>{{ state.SPMetadata.UIInfo.DisplayName.en }}</strong>
+            </p>
+        {% endif %}
+        {% if state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.Description.en %}
+            <p>
+                {{ state.SPMetadata.UIInfo.Description.en }}
+            </p>
+        {% endif %}
+        {% if state.SPMetadata.UIInfo.Logo and state.SPMetadata.UIInfo.Logo.0 and state.SPMetadata.UIInfo.Logo.0.url %}
+            <img src="{{ state.SPMetadata.UIInfo.Logo.0.url }}">
+        {% endif %}
+    {% endif %}
+
+    {% if logoutURL %}
+        <p>
+            <a href="{{ logoutURL }}">{% trans %}Logout{% endtrans %}</a>
+        </p>
+    {% endif %}
+{% endblock %}

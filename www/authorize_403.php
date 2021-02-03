@@ -21,5 +21,6 @@ if (isset($state['Source']['auth'])) {
 if (isset($state['authprocAuthorizeByDest_reject_msg'])) {
     $t->data['reject_msg'] = $state['authprocAuthorizeByDest_reject_msg'];
 }
+$t->data['state'] = $state;
 header('HTTP/1.0 403 Forbidden');
 $t->send();
