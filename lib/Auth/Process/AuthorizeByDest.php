@@ -2,11 +2,11 @@
 
 namespace SimpleSAML\Module\authorizebydest\Auth\Process;
 
-use Webmozart\Assert\Assert;
 use SimpleSAML\Auth;
 use SimpleSAML\Error\CriticalConfigurationError;
 use SimpleSAML\Module;
 use SimpleSAML\Utils;
+use Webmozart\Assert\Assert;
 
 /**
  * Filter to authorize only certain users.
@@ -14,7 +14,6 @@ use SimpleSAML\Utils;
  *
  * @package SimpleSAMLphp
  */
-
 class AuthorizeByDest extends Auth\ProcessingFilter
 {
     /**
@@ -35,11 +34,22 @@ class AuthorizeByDest extends Auth\ProcessingFilter
     protected $destination_whitelist = [];
 
     /**
+     * @var string
+     */
+    protected $discriminant_attribute;
+
+    /**
+     * @var array
+     */
+    protected $discriminant_users = [];
+
+    /**
      * Initialize this filter.
      * Validate configuration parameters.
      *
-     * @param array $config  Configuration information about this filter.
-     * @param mixed $reserved  For future use.
+     * @param array $config   Configuration information about this filter.
+     * @param mixed $reserved For future use.
+     *
      * @throws CriticalConfigurationError
      */
     public function __construct(array $config, $reserved)
@@ -64,28 +74,45 @@ class AuthorizeByDest extends Auth\ProcessingFilter
             $reason = 'There is no destination_whitelist config in authorizeByDest authproc filter';
             throw new CriticalConfigurationError($reason);
         }
+
+        if (isset($config['discriminant_attribute']) && is_string($config['discriminant_attribute'])) {
+            $this->discriminant_attribute = $config['discriminant_attribute'];
+        }
+        if (isset($config['discriminant_users']) && is_array($config['discriminant_users'])) {
+            $this->discriminant_users = $config['discriminant_users'];
+        }
+        if (isset($this->discriminant_users) and !isset($this->discriminant_attribute)) {
+            $reason = 'You have to define discriminant attribute in authorizeByDest authproc filter';
+            throw new CriticalConfigurationError($reason);
+        }
     }
 
 
     /**
      * Apply filter to validate dest and user.
      *
-     * @param array &$request  The current request
+     * @param array &$request The current request
      */
     public function process(&$request)
     {
         Assert::keyExists($request, 'Attributes');
         Assert::keyExists($request, 'SPMetadata');
-        Assert::keyExists($request['SPMetadata'],'entityid');
+        Assert::keyExists($request['SPMetadata'], 'entityid');
 
         $attributes = $request['Attributes'];
         $destination = $request['SPMetadata']['entityid'];
 
-        if (!empty($attributes[$this->attribute]) && in_array($this->attribute_value, $attributes[$this->attribute])) {
-            if (!in_array($destination, $this->destination_whitelist)) {
-                $this->unauthorized($request);
+        if (!empty($attributes[$this->discriminant_attribute])
+            && empty(array_intersect($attributes[$this->discriminant_attribute], $this->discriminant_users))
+        ) {
+            if (!empty($attributes[$this->attribute]) && in_array($this->attribute_value, $attributes[$this->attribute])) {
+                if (!in_array($destination, $this->destination_whitelist)) {
+                    $this->unauthorized($request);
+                }
             }
         }
+
+
     }
 
 

@@ -24,9 +24,11 @@ class AuthorizeByDestTest extends TestCase
     {
         $userAttributes = Attributes::normalizeAttributesArray($userAttributes);
         $config = [
-            'attribute'             => 'checkAttribute',
-            'attribute_value'       => '0',
-            'destination_whitelist' => ['sp-a', 'sp-b'],
+            'discriminant_attribute' => 'uid',
+            'discriminant_users'     => ['vip_1@example.com', 'vip_2@example.com'],
+            'attribute'              => 'checkAttribute',
+            'attribute_value'        => '0',
+            'destination_whitelist'  => ['sp-a', 'sp-b'],
         ];
 
         $request = [
@@ -83,6 +85,14 @@ class AuthorizeByDestTest extends TestCase
                 [
                     'uid'            => 'anything@example.com',
                     'checkAttribute' => '1',
+                ],
+                'sp-c',
+                true,
+            ],
+            [
+                [
+                    'uid'            => 'vip_1@example.com',
+                    'checkAttribute' => '0',
                 ],
                 'sp-c',
                 true,
