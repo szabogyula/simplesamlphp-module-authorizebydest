@@ -36,11 +36,11 @@ Note: This option needs to be boolean (TRUE/FALSE) else it will be considered an
 ### `destination_whitelist` ###
 Array of sp entityids. The users with the attributes described above can access these SP-s and cant access other SPs.  
 
-### `discriminant_attribute` ###
+### `distinguish_attribute` ###
 The attribute that hold the user ids.
 
-### `discriminant_users` ###
-The array of vaules (uids) of the discrimimnat users.
+### `distinguish_users` ###
+The array of vaules (uids) of the distinguish users.
 
 
 ### Examples ###
@@ -56,8 +56,8 @@ To use this filter configure it in `metadata/saml20-idp-hosted.php`.
             'https://intraweb.local',
             'https://webmail.local',
         ]
-        'discriminant_attribute' => 'uid',
-        'discriminant_users' => [
+        'distinguish_attribute' => 'uid',
+        'distinguish_users' => [
             'vip_1',
             'vip_2',
         ]
@@ -67,5 +67,5 @@ To use this filter configure it in `metadata/saml20-idp-hosted.php`.
 
 In this case the users with affiliate affiliation can access the intraweb and webmail but deny other else.
 
-Discriminant users - uid vip_1 and vip_2 - not denied anywhere.
+Distinguish users - uid vip_1 and vip_2 - not denied anywhere.
 

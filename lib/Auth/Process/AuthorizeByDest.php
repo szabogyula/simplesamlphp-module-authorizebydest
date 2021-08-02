@@ -4,6 +4,7 @@ namespace SimpleSAML\Module\authorizebydest\Auth\Process;
 
 use SimpleSAML\Auth;
 use SimpleSAML\Error\CriticalConfigurationError;
+use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Utils;
 use Webmozart\Assert\Assert;
@@ -36,12 +37,12 @@ class AuthorizeByDest extends Auth\ProcessingFilter
     /**
      * @var string
      */
-    protected $discriminant_attribute;
+    protected $distinguish_attribute;
 
     /**
      * @var array
      */
-    protected $discriminant_users = [];
+    protected $distinguish_users = [];
 
     /**
      * Initialize this filter.
@@ -75,14 +76,14 @@ class AuthorizeByDest extends Auth\ProcessingFilter
             throw new CriticalConfigurationError($reason);
         }
 
-        if (isset($config['discriminant_attribute']) && is_string($config['discriminant_attribute'])) {
-            $this->discriminant_attribute = $config['discriminant_attribute'];
+        if (isset($config['distinguish_attribute']) && is_string($config['distinguish_attribute'])) {
+            $this->distinguish_attribute = $config['distinguish_attribute'];
         }
-        if (isset($config['discriminant_users']) && is_array($config['discriminant_users'])) {
-            $this->discriminant_users = $config['discriminant_users'];
+        if (isset($config['distinguish_users']) && is_array($config['distinguish_users'])) {
+            $this->distinguish_users = $config['distinguish_users'];
         }
-        if (isset($this->discriminant_users) and !isset($this->discriminant_attribute)) {
-            $reason = 'You have to define discriminant attribute in authorizeByDest authproc filter';
+        if (isset($this->distinguish_users) and !isset($this->distinguish_attribute)) {
+            $reason = 'You have to define distinguish attribute in authorizeByDest authproc filter';
             throw new CriticalConfigurationError($reason);
         }
     }
@@ -102,8 +103,15 @@ class AuthorizeByDest extends Auth\ProcessingFilter
         $attributes = $request['Attributes'];
         $destination = $request['SPMetadata']['entityid'];
 
-        if (!empty($attributes[$this->discriminant_attribute])
-            && empty(array_intersect($attributes[$this->discriminant_attribute], $this->discriminant_users))
+
+        Logger::debug("AuthorizeByDest distinguish values: " . json_encode([
+            $this->distinguish_attribute,
+            $attributes[$this->distinguish_attribute],
+            $this->distinguish_users,
+        ]));
+
+        if (!empty($attributes[$this->distinguish_attribute])
+            && empty(array_intersect($attributes[$this->distinguish_attribute], $this->distinguish_users))
         ) {
             if (!empty($attributes[$this->attribute]) && in_array($this->attribute_value, $attributes[$this->attribute])) {
                 if (!in_array($destination, $this->destination_whitelist)) {
