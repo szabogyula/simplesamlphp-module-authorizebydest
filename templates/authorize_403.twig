@@ -2,29 +2,29 @@
 
 {% block content %}
     <h1>{% trans %}Hozzáférés megtagadva{% endtrans %}</h1>
-    {% if reject_msg %}
+    {% if reject_msg is defined %}
         <p>{{ reject_msg|translateFromArray }}</p>
     {% else %}
         <p>A felkeresett szolgáltatást ezzel az azonosítóval nem lehet igénybe venni.</p>
     {% endif %}
 
-    {% if state.SPMetadata and state.SPMetadata.UIInfo and state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.DisplayName.en %}
-        {% if state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.DisplayName.en %}
+    {% if state.SPMetadata is defined and state.SPMetadata.UIInfo is defined and state.SPMetadata.UIInfo.DisplayName is defined and state.SPMetadata.UIInfo.DisplayName.en is defined %}
+        {% if state.SPMetadata.UIInfo.DisplayName is defined and state.SPMetadata.UIInfo.DisplayName.en is defined %}
             <p>
                 <strong>{{ state.SPMetadata.UIInfo.DisplayName.en }}</strong>
             </p>
         {% endif %}
-        {% if state.SPMetadata.UIInfo.DisplayName and state.SPMetadata.UIInfo.Description.en %}
+        {% if state.SPMetadata.UIInfo.DisplayName is defined and state.SPMetadata.UIInfo.Description.en is defined%}
             <p>
                 {{ state.SPMetadata.UIInfo.Description.en }}
             </p>
         {% endif %}
-        {% if state.SPMetadata.UIInfo.Logo and state.SPMetadata.UIInfo.Logo.0 and state.SPMetadata.UIInfo.Logo.0.url %}
+        {% if state.SPMetadata.UIInfo.Logo is defined and state.SPMetadata.UIInfo.Logo.0 is defined and state.SPMetadata.UIInfo.Logo.0.url is defined %}
             <img src="{{ state.SPMetadata.UIInfo.Logo.0.url }}">
         {% endif %}
     {% endif %}
 
-    {% if logoutURL %}
+    {% if logoutURL is defined %}
         <p>
             <a href="{{ logoutURL }}">{% trans %}Logout{% endtrans %}</a>
         </p>
